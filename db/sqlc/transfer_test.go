@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"github.com/titusdishon/simple_bank/db/util"
+	"github.com/titusdishon/simple_bank/util"
 )
 
 func createRandomTransfer(t *testing.T) Transfer {
