@@ -75,7 +75,6 @@ func TestGetAccountAPI(t *testing.T) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
 			},
 		},
-		// add more test cases here
 	}
 
 	for i := range testCase {
@@ -238,7 +237,6 @@ func TestListAccountAPI(t *testing.T) {
 				require.Equal(t, http.StatusInternalServerError, recorder.Code)
 			},
 		},
-		// add more test cases here
 	}
 
 	for i := range testCase {
@@ -334,5 +332,4 @@ func TestUpdateAccountAPI(t *testing.T) {
 			tc.checkResponse(t, recorder)
 		})
 	}
-
 }

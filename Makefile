@@ -17,10 +17,15 @@ sqlc:
 	sqlc generate
 
 test:
-	go test -v -cover ./...
+	go test -v -cover ./... -coverprofile coverage.out
+
+coverage:
+	chmod u+x ./coverage.sh && ./coverage.sh
+
 server:
 	go run main.go
+	
 mock:
 	mockgen --build_flags=--mod=mod -package mockdb -destination db/mock/store.go github.com/titusdishon/simple_bank/db/sqlc Store 
 
-.PHONY: createDb, postgres, dropDb, migrateUp, migrateDown ,sqlc, server, mock
+.PHONY: createDb, postgres, dropDb, migrateUp, migrateDown ,sqlc, server, mock, coverage

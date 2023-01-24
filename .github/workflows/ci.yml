@@ -49,3 +49,6 @@ jobs:
 
       - name: Test
         run: make test
+      - name: Generate Coverage
+        working-directory: .
+        run: make coverage
