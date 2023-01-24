@@ -18,5 +18,7 @@ sqlc:
 
 test:
 	go test -v -cover ./...
+server:
+	go run main.go
 
-.PHONY: createDb, postgres, dropDb, migrateUp, migrateDown ,sqlc
+.PHONY: createDb, postgres, dropDb, migrateUp, migrateDown ,sqlc, server

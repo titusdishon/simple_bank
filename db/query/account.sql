@@ -23,7 +23,7 @@ SET balance = balance+sqlc.arg(amount)
 WHERE id= sqlc.arg(id)
 RETURNING *;
 
--- name: ListAccount :many
+-- name: ListAccounts :many
 SELECT * FROM accounts
 ORDER BY id
 LIMIT $1
