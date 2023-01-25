@@ -86,7 +86,7 @@ func TestGetAccountAPI(t *testing.T) {
 			store := mockdb.NewMockStore(ctrl)
 			tc.buiLdStub(store)
 			// start test server and send request
-			server := NewSever(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 			url := fmt.Sprintf("/accounts/%d", tc.accountID)
 			request, err := http.NewRequest(http.MethodGet, url, nil)
@@ -157,7 +157,7 @@ func TestCreateAccountAPI(t *testing.T) {
 			store := mockdb.NewMockStore(ctrl)
 			tc.buiLdStub(store)
 			// start test server and send request
-			server := NewSever(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			//Marshal data
@@ -256,7 +256,7 @@ func TestListAccountAPI(t *testing.T) {
 			store := mockdb.NewMockStore(ctrl)
 			tc.buiLdStub(store)
 			// start test server and send request
-			server := NewSever(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 			url := fmt.Sprintf("/accounts?page_id=%d&page_size=%d", tc.pageId, tc.pageSize)
 			request, err := http.NewRequest(http.MethodGet, url, nil)

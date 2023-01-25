@@ -198,7 +198,7 @@ func TestCreateUserAPI(t *testing.T) {
 			tc.buiLdStub(store)
 
 			// start test server and send request
-			server := NewSever(store)
+			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
 			//Marshal data
