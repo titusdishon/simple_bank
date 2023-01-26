@@ -8,16 +8,16 @@ dropDb:
 	docker exec -t postgres15 dropdb  simple_bank
 
 migrateUp:
-	migrate -path db/migrations -database "postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable" -verbose up
+	migrate -path db/migrations -database "postgresql://root:YLD8SUpgh3X8aADF6Mjb@simplebank.cnyqhfovnqu6.eu-central-1.rds.amazonaws.com:5432/simple_bank" -verbose up
 
 migrateUp1:
-	migrate -path db/migrations -database "postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
+	migrate -path db/migrations -database "postgresql://root:YLD8SUpgh3X8aADF6Mjb@simplebank.cnyqhfovnqu6.eu-central-1.rds.amazonaws.com:5432/simple_bank" -verbose up 1
 
 migrateDown:
-	migrate -path db/migrations -database "postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable" -verbose down
+	migrate -path db/migrations -database "postgresql://root:YLD8SUpgh3X8aADF6Mjb@simplebank.cnyqhfovnqu6.eu-central-1.rds.amazonaws.com:5432/simple_bank" -verbose down
 
 migrateDown1:
-	migrate -path db/migrations -database "postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
+	migrate -path db/migrations -database "postgresql://root:YLD8SUpgh3X8aADF6Mjb@simplebank.cnyqhfovnqu6.eu-central-1.rds.amazonaws.com:5432/simple_bank" -verbose down 1
 
 sqlc:
 	sqlc generate
@@ -35,3 +35,4 @@ mock:
 	mockgen --build_flags=--mod=mod -package mockdb -destination db/mock/store.go github.com/titusdishon/simple_bank/db/sqlc Store 
 
 .PHONY: createDb, postgres, dropDb, migrateUp, migrateDown, migrateUp1, migrateDown1 ,sqlc, server, mock, coverage
+
