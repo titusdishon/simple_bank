@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package ="github.com/titusdishon/simple_bank/pb";
+
+import "user.proto";
+
+message CreateUserRequest{
+    string username = 1;
+    string full_name = 2;
+    string phone_number = 3;
+    string email = 4;
+    string password = 5;
+}
+
+message CreateUserResponse{
+   User user =1;
+}

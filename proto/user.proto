@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package ="github.com/titusdishon/simple_bank/pb";
+
+import "google/protobuf/timestamp.proto";
+
+message User{
+    string username = 1;
+    string full_name = 2;
+    string phone_number = 3;
+    string email = 4;
+    google.protobuf.Timestamp password_changed_at = 5;
+    google.protobuf.Timestamp created_at = 6;
+}
