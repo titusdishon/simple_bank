@@ -1,0 +1,65 @@
+Project simple_bank{
+    database_type:'PostgreSQL'
+    Note: '''
+    # Simple banking app database 
+    **markdown content here **
+    '''
+}
+
+//// -- LEVEL 1
+//// -- Schemas, Tables and References
+
+// Creating tables
+// You can define the tables with full schema names
+
+Table users as U{
+  username varchar [pk]
+  hashed_password varchar [not null]
+  full_name varchar [not null]
+  phone_number varchar [not null]
+  email varchar [unique, not null]
+  password_changed_at timestamptz [not null, default: '0001-01-01 00:00:00Z']
+  created_at timestamptz [not null, default: 'now()']
+
+}
+
+Table accounts as A {
+  id bigserial  [pk]
+  owner varchar [ref: > U.username, not null]
+  balance  bigint  [not null]
+  currency varchar  [not null]
+  "created_at" timestamptz [not null, default: 'now()']
+  indexes {
+    owner
+    (owner, currency)[unique]
+  }
+}
+
+
+// If schema name is omitted, it will default to "public" schema.
+Table entries {
+  id bigserial [pk, increment]
+  account_id bigint [ref: > A.id,not null]
+  amount bigint  [not null,note: 'can be positive or negative']
+  created_at timestamptz [not null, default: 'now()']
+  indexes {
+    account_id
+  }
+}
+
+Table transfers {
+  id bigserial [pk]
+  from_account_id bigint [ref: > A.id, not null, note:'foreign key']
+  to_account_id bigint [ref: > A.id, not null]
+  amount bigint  [not null, note:'must be positive']
+  created_at timestamptz [not null, default: 'now()']
+  indexes {
+    from_account_id
+    to_account_id
+    (from_account_id, to_account_id)
+  }
+ }
+
+
+
+

@@ -1,3 +1,4 @@
+DB_URL=postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable
 postgres:
 	docker run --name postgres15  --network bank-network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=geek36873 -d postgres:15-alpine
 
@@ -8,19 +9,19 @@ dropDb:
 	docker exec -t postgres15 dropdb  simple_bank
 
 migrateUp:
-	migrate -path db/migrations -database "postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable" -verbose up
+	migrate -path db/migrations -database  -verbose up
 
 migrateUpTest:
-	migrate -path db/migrations -database "postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable" -verbose up
+	migrate -path db/migrations -database "$(DB_URL)" -verbose up
 
 migrateUp1:
-	migrate -path db/migrations -database "postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
+	migrate -path db/migrations -database "$(DB_URL)" -verbose up 1
 
 migrateDown:
-	migrate -path db/migrations -database "postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable" -verbose down
+	migrate -path db/migrations -database "$(DB_URL)" -verbose down
 
 migrateDown1:
-	migrate -path db/migrations -database "postgresql://root:geek36873@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
+	migrate -path db/migrations -database "$(DB_URL)" -verbose down 1
 
 sqlc:
 	sqlc generate
@@ -37,5 +38,9 @@ server:
 mock:
 	mockgen --build_flags=--mod=mod -package mockdb -destination db/mock/store.go github.com/titusdishon/simple_bank/db/sqlc Store 
 
-.PHONY: createDb, postgres, dropDb, migrateUp, migrateDown, migrateUp1, migrateDown1 ,sqlc, server, mock, coverage
+dbdocs:
+	dbdocs build docs/db.dbml
+dbschema:
+	dbml2sql --postgres -o docs/schema.sql docs/db.dbml
+.PHONY: createDb, postgres, dropDb, migrateUp, migrateDown, migrateUp1, migrateDown1 ,sqlc, server, mock, coverage,dbdocs,dbschema
 
